@@ -65,41 +65,35 @@ class DetectiveBook extends Book {
 }
 
 class Library {
-    consructor(name){
+    constructor(name){
         this.name = name;
         this.books = [];
     }
 
     addBook(book) {
-        this.books.push(book);
+        if(book.state > 30) {
+            this.books.push(book);
+        }
     }
 
     findBookBy(type, value) {
-        this.books.find(book => this.type === this.value)    
+        
+        let foundBook = this.books.find(book => book[type] === value) 
+        if (foundBook !== undefined){
+            return foundBook;
+        }
+        return null;
+    }
+
+    giveBookByName(bookName) {
+        let indexOfBook = this.books.findIndex(book =>{
+            return book.name === bookName;
+            }
+        )
+        if (indexOfBook === -1){
+            return null;
+        }
+        return this.books.splice(indexOfBook, 1)[0];
     }
 }
-const library = new Library("Библиотека имени Ленина");
 
- library.addBook(
-  new DetectiveBook(
-    "Артур Конан Дойл",
-    "Полное собрание повестей и рассказов о Шерлоке Холмсе в одном томе",
-    2019,
-    1008
-  )
-);
-library.addBook(
-  new FantasticBook(
-    "Аркадий и Борис Стругацкие",
-    "Пикник на обочине",
-    1972,
-    168
-  )
-);
-console.log (library);
-library.addBook(new NovelBook("Герберт Уэллс", "Машина времени", 1895, 138));
-library.addBook(new Magazine("Мурзилка", 1924, 60));
-console.log(library.books)
-
-// console.log(library.findBookBy("name", "Властелин колец")); //null
-// console.log(library.findBookBy("releaseDate", 1924).name); //"Мурзилк
